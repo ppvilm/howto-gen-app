@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "updatedAt": "",
+  "scoreThresholds": {
+    "direct": 0.78,
+    "tryMultiple": 0.6,
+    "llmFallback": 0.6
+  },
+  "weights": {
+    "roleMatch": 0.2,
+    "labelSimilarity": 0.3,
+    "i18nNormalization": 0.05,
+    "stableAttributes": 0.2,
+    "contextBoost": 0.15,
+    "negativeSignals": 0.3
+  },
+  "synonyms": {
+    "login": ["anmelden", "sign in", "log in", "einloggen"],
+    "register": ["registrieren", "sign up", "anmelden", "erstellen"],
+    "submit": ["absenden", "senden", "send", "abschicken"],
+    "cancel": ["abbrechen", "zurück", "back", "schließen"],
+    "search": ["suchen", "suche", "find", "finden"],
+    "email": ["e-mail", "mail", "email"],
+    "password": ["passwort", "kennwort", "pwd"],
+    "username": ["benutzername", "nutzername", "user"],
+    "confirm": ["bestätigen", "confirm", "ok"],
+    "next": ["weiter", "next", "continue", "fortfahren"],
+    "previous": ["zurück", "back", "prev", "vorherige"]
+  },
+  "staticSelectors": [
+    
+  ],
+  "learnedSelectors": [],
+  "patterns": {
+    "buttonTexts": ["SAVE", "Save", "save", "START", "Start", "start", "CANCEL", "Cancel", "cancel"],
+    "interactiveButtonQuery": "button, [role=\"button\"], input[type=\"submit\"], input[type=\"button\"], a[role=\"button\"], a[href]",
+    "interactiveInputQuery": "input, textarea, [contenteditable=\"true\"]",
+    "navigationContainers": "nav, [role=\"navigation\"], .sidebar, .side-nav, [data-unique*=\"SideBar\"]",
+    "modalSelectors": "[role=\"dialog\"]:not([aria-hidden=\"true\"]), .modal:not(.hidden), [data-modal], .drawer, [data-drawer]",
+    "landmarkQuery": "h1, h2, h3, [role=\"main\"], [role=\"navigation\"], [role=\"banner\"]"
+  }
+}

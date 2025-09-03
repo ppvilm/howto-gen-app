@@ -1,0 +1,130 @@
+// Prisma schema for howto-server
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id         String      @id @default(cuid())
+  name       String?
+  users      User[]
+  workspaces Workspace[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  accountId    String
+  account      Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Workspace {
+  id                 String             @id // also acts as flowName
+  name               String?
+  rootPath           String?
+  accountId          String
+  account            Account            @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  scripts            Script[]
+  sessions           Session[]
+  workspaceSecrets   WorkspaceSecret[]
+  workspaceVariables WorkspaceVariable[]
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+}
+
+model Script {
+  id              String           @id // UUID from SDK
+  name            String?
+  path            String
+  workspaceId     String
+  workspace       Workspace        @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  sessions        Session[]
+  scriptSecrets   ScriptSecret[]
+  scriptVariables ScriptVariable[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  @@index([workspaceId])
+}
+
+model Session {
+  id          String      @id // sessionId or scriptId (for prompt)
+  type        SessionType
+  status      String?
+  startedAt   DateTime    @default(now())
+  completedAt DateTime?
+  error       String?
+  workspaceId String
+  workspace   Workspace   @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  scriptId    String?
+  script      Script?     @relation(fields: [scriptId], references: [id])
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@index([workspaceId])
+  @@index([scriptId])
+}
+
+enum SessionType {
+  RUN
+  PROMPT
+}
+
+model WorkspaceSecret {
+  id          String    @id @default(cuid())
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  key         String
+  // store ciphertext and metadata as JSON to support algo/iv/tag
+  valueEnc    Json
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@unique([workspaceId, key])
+}
+
+model WorkspaceVariable {
+  id          String    @id @default(cuid())
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  key         String
+  valueJson   Json
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@unique([workspaceId, key])
+}
+
+model ScriptSecret {
+  id       String @id @default(cuid())
+  scriptId String
+  script   Script @relation(fields: [scriptId], references: [id], onDelete: Cascade)
+  key      String
+  valueEnc Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([scriptId, key])
+}
+
+model ScriptVariable {
+  id        String @id @default(cuid())
+  scriptId  String
+  script    Script @relation(fields: [scriptId], references: [id], onDelete: Cascade)
+  key       String
+  valueJson Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([scriptId, key])
+}

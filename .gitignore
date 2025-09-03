@@ -1,0 +1,6 @@
+node_modules
+dist
+debug-output
+.env
+howto-server/.env
+howto-server/storage

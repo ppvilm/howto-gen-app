@@ -1,0 +1,177 @@
+{
+  "timestamp": "2025-08-20T20:11:23.808Z",
+  "source": "/Users/paulproll/Desktop/docs-vid-gen-test/output/generated-guide.md",
+  "output": "../output/generated-guide.md",
+  "screenshots": "../output/screenshots",
+  "stepResults": [
+    {
+      "step": {
+        "type": "goto",
+        "url": "https://smoketest.live-a.botium.cyaraportal.eu",
+        "screenshot": true,
+        "note": "Navigate to base URL\n",
+        "waitMs": 1000,
+        "sensitive": false
+      },
+      "success": true,
+      "screenshot": "step-01.png"
+    },
+    {
+      "step": {
+        "type": "tts_start",
+        "label": "enter_username",
+        "text": "Entering 'admin' in the Email or Username field",
+        "screenshot": false,
+        "sensitive": false
+      },
+      "success": true
+    },
+    {
+      "step": {
+        "type": "type",
+        "label": "Email or Username",
+        "value": "admin",
+        "screenshot": true,
+        "note": "Login Form\n{\"intent\":\"type\",\"field\":\"Email or Username\",\"group\":\"Login Form\",\"synonyms\":[\"email or username\",\"e-mail\",\"username\",\"user\",\"mail\",\"login\",\"vorname\",\"nachname\",\"first name\",\"last name\"],\"roleHint\":\"textbox\",\"sensitive\":false}\nEnter \"admin\" in Email or Username\n",
+        "sensitive": false
+      },
+      "success": true,
+      "screenshot": "step-03.png"
+    },
+    {
+      "step": {
+        "type": "tts_wait",
+        "label": "enter_username",
+        "waitMs": 1500,
+        "screenshot": false,
+        "sensitive": false
+      },
+      "success": true
+    },
+    {
+      "step": {
+        "type": "tts_start",
+        "label": "enter_password",
+        "text": "Entering sensitive data in the Password field",
+        "screenshot": false,
+        "sensitive": false
+      },
+      "success": true
+    },
+    {
+      "step": {
+        "type": "type",
+        "label": "Password",
+        "value": "C6jN5yF4Vq7x6AXb",
+        "sensitive": true,
+        "screenshot": true,
+        "note": "Login Form\n{\"intent\":\"type\",\"field\":\"Password\",\"group\":\"Login Form\",\"synonyms\":[\"password\",\"passwort\",\"kennwort\",\"pwd\",\"pass\"],\"roleHint\":\"textbox\",\"sensitive\":true}\nEnter value in Password\n"
+      },
+      "success": true,
+      "screenshot": "step-06.png"
+    },
+    {
+      "step": {
+        "type": "tts_wait",
+        "label": "enter_password",
+        "waitMs": 1500,
+        "screenshot": false,
+        "sensitive": false
+      },
+      "success": true
+    },
+    {
+      "step": {
+        "type": "tts_start",
+        "label": "click_login",
+        "text": "Clicking the Login button",
+        "screenshot": false,
+        "sensitive": false
+      },
+      "success": true
+    },
+    {
+      "step": {
+        "type": "click",
+        "label": "Login",
+        "screenshot": true,
+        "note": "Login Form\n{\"intent\":\"click\",\"buttonText\":\"Login\",\"group\":\"Login Form\",\"synonyms\":[\"login\",\"sign in\",\"anmelden\",\"einloggen\",\"submit\"],\"submit\":true,\"priority\":\"secondary\",\"roleHint\":\"button\"}\nClick Login\n",
+        "sensitive": false
+      },
+      "success": true,
+      "screenshot": "step-09.png"
+    },
+    {
+      "step": {
+        "type": "tts_wait",
+        "label": "click_login",
+        "waitMs": 2000,
+        "screenshot": false,
+        "sensitive": false
+      },
+      "success": true
+    },
+    {
+      "step": {
+        "type": "tts_start",
+        "label": "verify_dashboard",
+        "text": "Verifying that the page is now the dashboard",
+        "screenshot": false,
+        "sensitive": false
+      },
+      "success": true
+    },
+    {
+      "step": {
+        "type": "assert_page",
+        "url": "/dashboard",
+        "screenshot": true,
+        "note": "Verification\n{\"intent\":\"verify\"}\nAssert current page URL\n",
+        "sensitive": false
+      },
+      "success": true,
+      "screenshot": "step-12.png"
+    },
+    {
+      "step": {
+        "type": "tts_wait",
+        "label": "verify_dashboard",
+        "waitMs": 2000,
+        "screenshot": false,
+        "sensitive": false
+      },
+      "success": true
+    },
+    {
+      "step": {
+        "type": "tts_start",
+        "label": "click_regression",
+        "text": "Clicking on the Regression button",
+        "screenshot": false,
+        "sensitive": false
+      },
+      "success": true
+    },
+    {
+      "step": {
+        "type": "click",
+        "label": "Regression",
+        "screenshot": true,
+        "note": "Sidebar\n{\"intent\":\"click\",\"buttonText\":\"Regression\",\"group\":\"sidebar\",\"synonyms\":[\"regression\"],\"submit\":false,\"priority\":\"secondary\",\"roleHint\":\"button\"}\nClick Regression\n",
+        "sensitive": false
+      },
+      "success": true,
+      "screenshot": "step-15.png"
+    },
+    {
+      "step": {
+        "type": "tts_wait",
+        "label": "click_regression",
+        "waitMs": 2000,
+        "screenshot": false,
+        "sensitive": false
+      },
+      "success": true
+    }
+  ]
+}

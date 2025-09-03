@@ -1,0 +1,39 @@
+{
+  "name": "howto-workspace",
+  "version": "1.0.0",
+  "description": "Workspace for howto-core and howto-cli packages",
+  "private": true,
+  "workspaces": [
+    "howto-core",
+    "howto-prompt",
+    "howto-sdk",
+    "howto-cli",
+    "howto-server",
+    "howto-web"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "build:core": "npm run build --workspace=howto-core",
+    "build:prompt": "npm run build --workspace=howto-prompt",
+    "build:sdk": "npm run build --workspace=howto-sdk",
+    "build:cli": "npm run build --workspace=howto-cli",
+    "dev": "npm run dev --workspaces",
+    "dev:web": "npm run dev --workspace=howto-web",
+    "start": "npm run start --workspace=howto-cli"
+  },
+  "keywords": [
+    "documentation",
+    "screenshots",
+    "automation",
+    "markdown",
+    "workspace"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.873.0"
+  }
+}

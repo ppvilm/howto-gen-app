@@ -1,0 +1,710 @@
+{
+  "version": 1,
+  "updatedAt": "2025-08-25T19:20:37.217Z",
+  "scoreThresholds": {
+    "direct": 0.78,
+    "tryMultiple": 0.6,
+    "llmFallback": 0.6
+  },
+  "weights": {
+    "roleMatch": 0.2,
+    "labelSimilarity": 0.3,
+    "i18nNormalization": 0.05,
+    "stableAttributes": 0.2,
+    "contextBoost": 0.15,
+    "negativeSignals": 0.3
+  },
+  "synonyms": {
+    "login": [
+      "anmelden",
+      "sign in",
+      "log in",
+      "einloggen"
+    ],
+    "register": [
+      "registrieren",
+      "sign up",
+      "anmelden",
+      "erstellen"
+    ],
+    "submit": [
+      "absenden",
+      "senden",
+      "send",
+      "abschicken"
+    ],
+    "cancel": [
+      "abbrechen",
+      "zurück",
+      "back",
+      "schließen"
+    ],
+    "search": [
+      "suchen",
+      "suche",
+      "find",
+      "finden"
+    ],
+    "email": [
+      "e-mail",
+      "mail",
+      "email"
+    ],
+    "password": [
+      "passwort",
+      "kennwort",
+      "pwd"
+    ],
+    "username": [
+      "benutzername",
+      "nutzername",
+      "user"
+    ],
+    "confirm": [
+      "bestätigen",
+      "confirm",
+      "ok"
+    ],
+    "next": [
+      "weiter",
+      "next",
+      "continue",
+      "fortfahren"
+    ],
+    "previous": [
+      "zurück",
+      "back",
+      "prev",
+      "vorherige"
+    ]
+  },
+  "staticSelectors": [],
+  "learnedSelectors": [
+    {
+      "label": "Knowledge Center",
+      "elementType": "button",
+      "selector": "a[href=\"https://support.botium.ai\"]",
+      "confidence": 1,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/login?forward=%2Fdashboard",
+      "source": "llm",
+      "usedCount": 2,
+      "lastUsedAt": "2025-08-25T19:19:16.792Z",
+      "reasoning": "Exact text match, preferred over classes, highest stability, and direct relation to step context (validated on attempt 1)"
+    },
+    {
+      "label": "Dashboard",
+      "elementType": "button",
+      "selector": "[data-unique=\"btnSideBarHome\"]",
+      "confidence": 0.8,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/regression",
+      "source": "llm",
+      "usedCount": 1,
+      "lastUsedAt": "2025-08-25T12:17:49.541Z",
+      "reasoning": "Exact text match, high stability, and data-* attribute makes this element the best choice (validated on attempt 1)"
+    },
+    {
+      "label": "Password",
+      "elementType": "input",
+      "selector": "[data-unique=\"txtLoginPageLoginFormPasswordInput\"]",
+      "confidence": 1,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/login?forward=%2Fdashboard",
+      "source": "llm",
+      "usedCount": 3,
+      "lastUsedAt": "2025-08-25T15:44:07.874Z",
+      "reasoning": "The selector with data-unique attribute is preferred due to its uniqueness and stability (high) over the classless input[name=\"password\"] (validated on attempt 1)"
+    },
+    {
+      "label": "Save",
+      "elementType": "button",
+      "selector": "button:has-text('Save')",
+      "confidence": 0.8,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/regression",
+      "source": "llm",
+      "usedCount": 1,
+      "lastUsedAt": "2025-08-25T10:09:35.414Z",
+      "reasoning": "Exact text match and high stability of this selector make it the most appropriate choice (validated on attempt 1)"
+    },
+    {
+      "label": "Logout",
+      "elementType": "button",
+      "selector": "a[href=\"/logout\"]",
+      "confidence": 1,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/dashboard",
+      "source": "llm",
+      "usedCount": 2,
+      "lastUsedAt": "2025-08-25T15:42:10.889Z",
+      "reasoning": "High stability and exact URL match make this selector the best choice (validated on attempt 1)"
+    },
+    {
+      "label": "Dashboard",
+      "elementType": "button",
+      "selector": "[data-unique=\"btnSideBarHome\"]",
+      "confidence": 1,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/dashboard",
+      "source": "llm",
+      "usedCount": 1,
+      "lastUsedAt": "2025-08-25T09:46:56.017Z",
+      "reasoning": "Exact text match with the intent 'Dashboard' and higher stability of this selector compared to others. (validated on attempt 2)"
+    },
+    {
+      "label": "Save",
+      "elementType": "button",
+      "selector": "[data-unique=\"btnTestProjectRegisterSave\"]",
+      "confidence": 0.8,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/regression",
+      "source": "llm",
+      "usedCount": 7,
+      "lastUsedAt": "2025-08-25T10:28:37.277Z",
+      "reasoning": "The 'Save' button has a unique data-unique attribute, and its text matches the step context. This selector has the highest stability (high) and is a specific attribute-based selector. (validated on attempt 1)"
+    },
+    {
+      "label": "Save",
+      "elementType": "button",
+      "selector": "button:has-text(\"Save\")",
+      "confidence": 0.8,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/regression",
+      "source": "llm",
+      "usedCount": 4,
+      "lastUsedAt": "2025-08-25T10:18:47.307Z",
+      "reasoning": "Element 2 has the exact text match 'Save' and is a button, making it the most suitable candidate. Data-unique attribute is not available, so we use the has-text selector with the highest stability. (validated on attempt 1)"
+    },
+    {
+      "label": "REGRESSION",
+      "elementType": "button",
+      "selector": "[data-unique=\"btnSideBarRegression\"]",
+      "confidence": 1,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/regression",
+      "source": "llm",
+      "usedCount": 1,
+      "lastUsedAt": "2025-08-25T09:24:47.852Z",
+      "reasoning": "The exact text match of 'REGRESSION' is found on element 1. The data-unique attribute has the highest priority over class names, and this selector has a high stability. (validated on attempt 1)"
+    },
+    {
+      "label": "Regression",
+      "elementType": "button",
+      "selector": "[data-unique='btnSideBarRegression']",
+      "confidence": 0.9,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/dashboard",
+      "source": "llm",
+      "usedCount": 1,
+      "lastUsedAt": "2025-08-25T09:24:32.008Z",
+      "reasoning": "The element 'Regression' has a unique data-unique attribute 'btnSideBarRegression'. This is a strong indication of its identity, and its stability is high. This makes it the most suitable element to click. (validated on attempt 1)"
+    },
+    {
+      "label": "Password",
+      "elementType": "input",
+      "selector": "[data-unique='txtLoginPageLoginFormPasswordInput']",
+      "confidence": 0.95,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/login?forward=%2Fdashboard",
+      "source": "llm",
+      "usedCount": 2,
+      "lastUsedAt": "2025-08-25T10:32:42.415Z",
+      "reasoning": "The element has a high stability and a unique data-unique attribute, making it the most reliable choice. The exact match of the data-unique attribute to the provided step context makes it the best option. (validated on attempt 1)"
+    },
+    {
+      "label": "Create Test",
+      "elementType": "button",
+      "selector": "[data-unique=\"btnQuickstartGoToTestProjects\"]",
+      "confidence": 0.95,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/regression",
+      "source": "llm",
+      "usedCount": 4,
+      "lastUsedAt": "2025-08-25T19:20:37.217Z",
+      "reasoning": "Exact text match and data-* attribute available, highest stability, and explicit ID-like uniqueness (validated on attempt 1)"
+    },
+    {
+      "label": "Cron Expression (Optional)",
+      "elementType": "input",
+      "selector": "#cronExpression",
+      "confidence": 0.9,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/regression",
+      "source": "llm",
+      "usedCount": 1,
+      "lastUsedAt": "2025-08-25T08:50:15.557Z",
+      "reasoning": "ID selector is more specific and stable than other options (validated on attempt 1)"
+    },
+    {
+      "label": "Email or Username",
+      "elementType": "input",
+      "selector": "input[name=\"email\"]",
+      "confidence": 0.9,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/login?forward=%2Fdashboard",
+      "source": "llm",
+      "usedCount": 3,
+      "lastUsedAt": "2025-08-25T10:44:31.373Z",
+      "reasoning": "Exact text/placeholder/name matches and highest stability (validated on attempt 1)"
+    },
+    {
+      "label": "Password",
+      "elementType": "input",
+      "selector": "input[name='password']",
+      "confidence": 1,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/login?forward=%2Fdashboard",
+      "source": "llm",
+      "usedCount": 1,
+      "lastUsedAt": "2025-08-25T08:20:46.012Z",
+      "reasoning": "Exact name match and high stability make this the best choice (validated on attempt 1)"
+    },
+    {
+      "label": "Dashboard",
+      "elementType": "button",
+      "selector": "a[href=\"/dashboard\"]",
+      "confidence": 0.9,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/dashboard",
+      "source": "llm",
+      "usedCount": 4,
+      "lastUsedAt": "2025-08-25T10:02:44.350Z",
+      "reasoning": "Exact match of the href attribute in the step context, and high stability of the selector. (validated on attempt 1)"
+    },
+    {
+      "label": "Test Project Name",
+      "elementType": "input",
+      "selector": "input[name=\"name\"]",
+      "confidence": 1,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/regression",
+      "source": "llm",
+      "usedCount": 4,
+      "lastUsedAt": "2025-08-25T07:58:23.358Z",
+      "reasoning": "Exact name match in step context, high stability, and semantic name attribute (validated on attempt 1)"
+    },
+    {
+      "label": "Test Project Name",
+      "elementType": "input",
+      "selector": "[data-unique=\"txtTestProjectRegisterTestProjectNameInput\"]",
+      "confidence": 0.95,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/regression",
+      "source": "llm",
+      "usedCount": 7,
+      "lastUsedAt": "2025-08-25T15:20:47.822Z",
+      "reasoning": "Best match for 'Test Project Name' with high stability and unique data-attribute. (validated on attempt 1)"
+    },
+    {
+      "label": "Test Project Name",
+      "elementType": "input",
+      "selector": "#name",
+      "confidence": 1,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/regression",
+      "source": "llm",
+      "usedCount": 9,
+      "lastUsedAt": "2025-08-25T08:50:01.826Z",
+      "reasoning": "Chosen the ID selector #name due to its high stability and exact match with the step context 'Test Project Name'. (validated on attempt 1)"
+    },
+    {
+      "label": "Test Project Name",
+      "elementType": "input",
+      "selector": "[data-unique='txtTestProjectRegisterTestProjectNameInput']",
+      "confidence": 0.9,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/regression",
+      "source": "llm",
+      "usedCount": 2,
+      "lastUsedAt": "2025-08-25T07:56:17.371Z",
+      "reasoning": "This selector has the highest stability and uses a data-attribute, which is preferred over class names and id. (validated on attempt 1)"
+    },
+    {
+      "label": "Login",
+      "elementType": "button",
+      "selector": "[data-unique=\"btnLoginPageLoginFormSubmit\"]",
+      "confidence": 1,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/login?forward=%2Fdashboard",
+      "source": "llm",
+      "usedCount": 6,
+      "lastUsedAt": "2025-08-25T15:12:44.380Z",
+      "reasoning": "Exact text match, button type is primary and submit, and the data-* attribute has highest stability (validated on attempt 1)"
+    },
+    {
+      "label": "Create Test",
+      "elementType": "button",
+      "selector": "button:has-text(\"Create Test\")",
+      "confidence": 0.8,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/regression",
+      "source": "llm",
+      "usedCount": 16,
+      "lastUsedAt": "2025-08-25T15:38:19.999Z",
+      "reasoning": "Exact text match and highest stability level (high) make this the most suitable choice. (validated on attempt 1)"
+    },
+    {
+      "label": "Regression",
+      "elementType": "button",
+      "selector": "a[href=\"/regression\"]",
+      "confidence": 0.8,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/regression",
+      "source": "llm",
+      "usedCount": 6,
+      "lastUsedAt": "2025-08-25T10:16:37.022Z",
+      "reasoning": "Exact text matches and highest stability (validated on attempt 1)"
+    },
+    {
+      "label": "Regression",
+      "elementType": "button",
+      "selector": "[data-unique=\"btnSideBarRegression\"]",
+      "confidence": 0.9,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/dashboard",
+      "source": "llm",
+      "usedCount": 14,
+      "lastUsedAt": "2025-08-25T15:37:52.270Z",
+      "reasoning": "Exact text match of 'Regression' in accessible name, combined with high stability and data-* attribute (validated on attempt 1)"
+    },
+    {
+      "label": "Password",
+      "elementType": "any",
+      "selector": "input[name=\"password\"]",
+      "confidence": 0.9,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/login?forward=%2Fdashboard",
+      "source": "llm",
+      "usedCount": 4,
+      "lastUsedAt": "2025-08-25T15:19:27.810Z",
+      "reasoning": "The element with the exact text 'Password' and 'Password' accessible name is an input element, which is clickable, and has a high stability selector. It also has a specific ID, but since it's not available, we use the name attribute as a fallback. (validated on attempt 1)"
+    },
+    {
+      "label": "Email or Username",
+      "elementType": "input",
+      "selector": "#email",
+      "confidence": 1,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/login?forward=%2Fdashboard",
+      "source": "llm",
+      "usedCount": 32,
+      "lastUsedAt": "2025-08-25T19:19:36.966Z",
+      "reasoning": "Exact ID match, high stability, and semantic attribute preference (validated on attempt 1)"
+    },
+    {
+      "label": "Password",
+      "elementType": "any",
+      "selector": "[data-unique=\"txtLoginPageLoginFormPassword\"]",
+      "confidence": 0.9,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/login?forward=%2Fdashboard",
+      "source": "llm",
+      "usedCount": 31,
+      "lastUsedAt": "2025-08-25T19:19:50.465Z",
+      "reasoning": "Best match for element 'Password' with exact attribute match, high stability, and semantic attribute. (validated on attempt 1)"
+    },
+    {
+      "label": "Email or Username",
+      "elementType": "input",
+      "selector": "[data-unique=\"txtLoginPageLoginFormUsernameInput\"]",
+      "confidence": 1,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/login?forward=%2Fdashboard",
+      "source": "llm",
+      "usedCount": 12,
+      "lastUsedAt": "2025-08-25T15:43:56.239Z",
+      "reasoning": "Exact text match in Step Context and high stability makes this the best choice. Data-* attributes are preferred over ID and class names. (validated on attempt 1)"
+    },
+    {
+      "label": "Regression",
+      "elementType": "button",
+      "selector": "a[href=\"/regression\"]",
+      "confidence": 0.9,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/dashboard",
+      "source": "llm",
+      "usedCount": 14,
+      "lastUsedAt": "2025-08-25T19:20:13.885Z",
+      "reasoning": "The exact match of the href attribute to \"/regression\" in ELEMENT 1 has the highest stability of high and is a direct match to the step context. (validated on attempt 1)"
+    },
+    {
+      "label": "Login",
+      "elementType": "button",
+      "selector": "button:has-text(\"Login\")",
+      "confidence": 1,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/login?forward=%2Fdashboard",
+      "source": "llm",
+      "usedCount": 42,
+      "lastUsedAt": "2025-08-25T19:19:57.345Z",
+      "reasoning": "Exact text match, button type (primary/submit) and highest stability (high) make this the preferred choice (validated on attempt 1)"
+    },
+    {
+      "label": "Password",
+      "elementType": "any",
+      "selector": "[data-unique='txtLoginPageLoginFormPassword']",
+      "confidence": 1,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/login?forward=%2Fdashboard",
+      "source": "llm",
+      "usedCount": 13,
+      "lastUsedAt": "2025-08-25T15:42:54.712Z",
+      "reasoning": "Exact text match of 'Password', high stability, and semantic attribute 'data-unique' make this the most suitable choice. (validated on attempt 1)"
+    },
+    {
+      "label": "Password",
+      "elementType": "input",
+      "selector": "input[name=\"password\"]",
+      "confidence": 0.9,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/login?forward=%2Fdashboard",
+      "source": "llm",
+      "usedCount": 43,
+      "lastUsedAt": "2025-08-25T19:19:46.275Z",
+      "reasoning": "Exact text/placeholder/name match, high stability, and semantic attribute 'name' are the deciding factors. (validated on attempt 1)"
+    },
+    {
+      "label": "Email or Username",
+      "elementType": "input",
+      "selector": "[data-unique='txtLoginPageLoginFormUsernameInput']",
+      "confidence": 0.9,
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/login?forward=%2Fdashboard",
+      "source": "llm",
+      "usedCount": 5,
+      "lastUsedAt": "2025-08-25T10:59:26.405Z",
+      "reasoning": "Based on the provided context, the exact data-unique attribute match is the most precise and stable selector. (validated on attempt 1)"
+    },
+    {
+      "label": "Password",
+      "elementType": "any",
+      "selector": "[data-unique=\"txtLoginPageLoginFormPasswordInput\"]",
+      "confidence": 0.8,
+      "fallbacks": [],
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/login?forward=%2Fdashboard",
+      "source": "llm",
+      "usedCount": 1,
+      "lastUsedAt": "2025-08-25T06:45:58.955Z",
+      "reasoning": "The input element with the text 'Password' has the highest stability and best matches the step context, and its data-unique attribute provides a unique identifier. (validated on attempt 1)"
+    },
+    {
+      "label": "Login",
+      "elementType": "button",
+      "selector": "#root > div > div > div > div > div > div.jss1214 > div > div.jss1096 > div > div.jss1085",
+      "confidence": 0.8,
+      "fallbacks": [
+        "a:has-text('Login')"
+      ],
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/dashboard",
+      "source": "llm",
+      "usedCount": 1,
+      "lastUsedAt": "2025-08-25T05:18:52.013Z",
+      "reasoning": "The element is a button with the exact text 'Login'"
+    },
+    {
+      "label": "Parse Error",
+      "elementType": "button",
+      "selector": "[data-unique='txtLoginPageLoginFormPasswordInput'] + label + div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > button",
+      "confidence": 0.7,
+      "fallbacks": [],
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/login?forward=%2Fdashboard",
+      "source": "llm",
+      "usedCount": 1,
+      "lastUsedAt": "2025-08-24T14:28:57.060Z",
+      "reasoning": "The selector finds the button with the text 'Parse Error' based on the provided HTML structure."
+    },
+    {
+      "label": "button:Login",
+      "elementType": "button",
+      "selector": "[data-unique='btnLogin]",
+      "confidence": 0.95,
+      "fallbacks": [
+        "a:contains('button:Login')"
+      ],
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/dashboard",
+      "source": "llm",
+      "usedCount": 1,
+      "lastUsedAt": "2025-08-23T06:08:24.902Z",
+      "reasoning": "This selector is the most specific and stable selector for the button"
+    },
+    {
+      "label": "password",
+      "elementType": "input",
+      "selector": "[data-unique='selNamespace'] input[type='password']",
+      "confidence": 0.9,
+      "fallbacks": [
+        "input[type='password']",
+        "[name='password']"
+      ],
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/regression",
+      "source": "llm",
+      "usedCount": 1,
+      "lastUsedAt": "2025-08-22T21:13:11.201Z",
+      "reasoning": "This selector targets the input field for password entry by using a stable attribute (data-unique) that is specific to the context of the password input."
+    },
+    {
+      "label": "username",
+      "elementType": "input",
+      "selector": "[data-unique='selNamespace']",
+      "confidence": 0.9,
+      "fallbacks": [
+        "[data-unique='TestProjects_regression_txtFilterInput']",
+        "#txtServerSidePagingTableFilterInput"
+      ],
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/regression",
+      "source": "llm",
+      "usedCount": 1,
+      "lastUsedAt": "2025-08-22T21:12:09.920Z",
+      "reasoning": "This selector targets a stable attribute that is unique to the input field for the username, aligning with the context of the task. (validated on attempt 2)"
+    },
+    {
+      "label": "button:Create new Test Set",
+      "elementType": "button",
+      "selector": "[data-unique='btnTestSetSaveAndContinueCustom']",
+      "confidence": 0.9,
+      "fallbacks": [
+        "[data-unique='pnlNewTestSet']"
+      ],
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/testsets",
+      "source": "llm",
+      "usedCount": 1,
+      "lastUsedAt": "2025-08-22T21:07:28.741Z",
+      "reasoning": "This selector targets the button element that contains the exact text 'Create new Test Set', which matches the requirement for the clickable element. (validated on attempt 1)"
+    },
+    {
+      "label": "NEEDS_USER_INPUT",
+      "elementType": "input",
+      "selector": "input[name='name']",
+      "confidence": 0.9,
+      "fallbacks": [
+        "input[data-unique='txtTestProjectRegisterTestProjectNameInput']",
+        "#name"
+      ],
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/regression",
+      "source": "llm",
+      "usedCount": 1,
+      "lastUsedAt": "2025-08-22T20:54:16.060Z",
+      "reasoning": "This selector targets the input field for the Test Project Name, which is the most relevant field for user input based on the context provided. (validated on attempt 1)"
+    },
+    {
+      "label": "password",
+      "elementType": "any",
+      "selector": "[data-unique='txtTestProjectRegisterTestProjectNameInput']",
+      "confidence": 0.9,
+      "fallbacks": [],
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/regression",
+      "source": "llm",
+      "usedCount": 1,
+      "lastUsedAt": "2025-08-22T20:22:03.422Z",
+      "reasoning": "This selector targets an input element specifically designed for password entry, which aligns with the context of the task. (validated on attempt 1)"
+    },
+    {
+      "label": "input[name='Search']",
+      "elementType": "input",
+      "selector": "[data-unique='selNamespace'] input",
+      "confidence": 0.9,
+      "fallbacks": [],
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/dashboard",
+      "source": "llm",
+      "usedCount": 1,
+      "lastUsedAt": "2025-08-22T20:05:29.918Z",
+      "reasoning": "This selector targets the input field within a stable parent element that has a unique identifier, ensuring it is specific and reliable. (validated on attempt 2)"
+    },
+    {
+      "label": "_BOTIUM_SMOKETEST_Smoketest-2025-08-22-14-00-35",
+      "elementType": "button",
+      "selector": "a.jss2309[href='/testsets/view/cmemwfgmx2ef2qr08zx3lqwk9/dashboard']",
+      "confidence": 0.9,
+      "fallbacks": [
+        "[data-unique='TestSets_0_0']"
+      ],
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/testsets",
+      "source": "llm",
+      "usedCount": 1,
+      "lastUsedAt": "2025-08-22T16:41:17.014Z",
+      "reasoning": "This selector targets the anchor element that contains the exact text '_BOTIUM_SMOKETEST_Smoketest-2025-08-22-14-00-35' and has a stable class name and href attribute, ensuring it uniquely identifies the desired link. (validated on attempt 1)"
+    },
+    {
+      "label": "_BOTIUM_SMOKETEST_Smoketest-2025-08-22-04-15-45",
+      "elementType": "button",
+      "selector": "a.jss2309[href='/testsets/view/cmembjd8v0rphqr08qr71l4w8/dashboard']",
+      "confidence": 0.9,
+      "fallbacks": [],
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/testsets",
+      "source": "llm",
+      "usedCount": 1,
+      "lastUsedAt": "2025-08-22T07:02:46.943Z",
+      "reasoning": "This selector targets the anchor element that contains the exact text '_BOTIUM_SMOKETEST_Smoketest-2025-08-22-04-15-45' and has a stable href attribute pointing to its dashboard, making it a reliable choice. (validated on attempt 1)"
+    },
+    {
+      "label": "Create new Test Set",
+      "elementType": "button",
+      "selector": "[data-unique='btnTestSetSaveAndContinueCustom']",
+      "confidence": 0.9,
+      "fallbacks": [
+        "[data-unique='btnSideBarTestSets']"
+      ],
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/testsets",
+      "source": "llm",
+      "usedCount": 1,
+      "lastUsedAt": "2025-08-22T06:44:08.373Z",
+      "reasoning": "This selector targets the specific element that contains the text 'Create new Test Set' within a stable parent element identified by the data-unique attribute. (validated on attempt 1)"
+    },
+    {
+      "label": "password",
+      "elementType": "input",
+      "selector": "[data-unique='selNamespaceInput']",
+      "confidence": 0.9,
+      "fallbacks": [],
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/dashboard",
+      "source": "llm",
+      "usedCount": 2,
+      "lastUsedAt": "2025-08-22T06:27:44.835Z",
+      "reasoning": "This selector targets the input field specifically designed for password entry, as indicated by the unique data attribute, which is stable and not generated. (validated on attempt 2)"
+    },
+    {
+      "label": "Logout",
+      "elementType": "button",
+      "selector": "[data-unique='btnSideBarLogout']",
+      "confidence": 0.9,
+      "fallbacks": [
+        "a[href='/logout']"
+      ],
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/dashboard",
+      "source": "llm",
+      "usedCount": 1,
+      "lastUsedAt": "2025-08-22T06:05:15.718Z",
+      "reasoning": "This selector targets the 'Logout' button using a stable data attribute that uniquely identifies the element, ensuring it is specific and reliable. (validated on attempt 1)"
+    },
+    {
+      "label": "Username",
+      "elementType": "input",
+      "selector": "[data-unique='selNamespace'] input",
+      "confidence": 0.9,
+      "fallbacks": [
+        "[data-unique='selNamespaceInput']"
+      ],
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/dashboard",
+      "source": "llm",
+      "usedCount": 2,
+      "lastUsedAt": "2025-08-22T05:48:30.733Z",
+      "reasoning": "This selector targets the input field associated with the 'Username' context, using a stable data attribute that is present in the HTML. (validated on attempt 2)"
+    },
+    {
+      "label": "Select a Chatbot",
+      "elementType": "button",
+      "selector": "[data-unique='selTestProjectRegisterChatbot']",
+      "confidence": 0.9,
+      "fallbacks": [
+        "[data-unique='btnSideBarChatbots']",
+        "[data-unique='selTestProjectRegisterChatbotInput']"
+      ],
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/regression",
+      "source": "llm",
+      "usedCount": 3,
+      "lastUsedAt": "2025-08-21T12:36:12.181Z",
+      "reasoning": "This selector targets the element that is specifically associated with selecting a chatbot, using a stable data attribute that is unique to this element. (validated on attempt 1)"
+    },
+    {
+      "label": "Select Test Set(s)",
+      "elementType": "button",
+      "selector": "[data-unique='selTestProjectRegisterTestset']",
+      "confidence": 0.9,
+      "fallbacks": [
+        "[data-unique='selTestProjectRegisterTestset'] [role='button']",
+        "[data-unique='selTestProjectRegisterTestsetInput']"
+      ],
+      "urlPattern": "https://smoketest.live-a.botium.cyaraportal.eu/regression",
+      "source": "manual",
+      "usedCount": 0,
+      "lastUsedAt": "2025-08-25T15:20:47.822Z",
+      "reasoning": "Custom dropdown element that requires click action instead of type. Uses stable data-unique attribute for reliable identification."
+    }
+  ],
+  "patterns": {
+    "buttonTexts": [
+      "SAVE",
+      "Save",
+      "save",
+      "START",
+      "Start",
+      "start",
+      "CANCEL",
+      "Cancel",
+      "cancel"
+    ],
+    "interactiveButtonQuery": "button, [role=\"button\"], input[type=\"submit\"], input[type=\"button\"], a[role=\"button\"], a[href]",
+    "interactiveInputQuery": "input, textarea, [contenteditable=\"true\"]",
+    "navigationContainers": "nav, [role=\"navigation\"], .sidebar, .side-nav, [data-unique*=\"SideBar\"]",
+    "modalSelectors": "[role=\"dialog\"]:not([aria-hidden=\"true\"]), .modal:not(.hidden), [data-modal], .drawer, [data-drawer]",
+    "landmarkQuery": "h1, h2, h3, [role=\"main\"], [role=\"navigation\"], [role=\"banner\"]"
+  }
+}

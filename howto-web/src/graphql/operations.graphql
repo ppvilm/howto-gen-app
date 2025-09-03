@@ -1,0 +1,14 @@
+# Auth
+mutation SignIn($email: String!, $password: String!) {
+  signIn(email: $email, password: $password) { token }
+}
+
+mutation SignUp($email: String!, $password: String!) {
+  signUp(email: $email, password: $password) { token }
+}
+
+# Current user
+query Me {
+  me { id email accountId }
+}
+

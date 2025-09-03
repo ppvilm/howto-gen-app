@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: howto_postgres
+    restart: unless-stopped
+    ports:
+      - "8899:5432"
+    environment:
+      POSTGRES_DB: howto
+      POSTGRES_USER: howto
+      POSTGRES_PASSWORD: howto
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
+    driver: local
+

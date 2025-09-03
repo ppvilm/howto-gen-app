@@ -1,0 +1,88 @@
+1) Selector‑RAG Pipeline
+
+- Ziel: Probabilistisches “Retrieve → Re‑Rank → Synthesize → Validate” für robuste Selektoren, Heuristiken optional/abschaltbar.
+- Architektur:
+    - SemanticIndex: Baut Element‑Embeddings aus UI‑Elementbeschreibungen.
+    - ModelSelector: Re‑Ranker (XGBoost/LogReg; später Mini‑Cross‑Encoder) erzeugt p(selector|query).
+    - SelectorSynthesizer: Generiert stabile Selektoren (data‑*/id/name/role+aria/a[href]/kurze button:has-text).
+    - Validator: Deterministische DOM‑Checks (ein Element, sichtbar, enabled, actionable).
+    - Memory: SelectorHeuristicsStore zur Persistenz erfolgreicher Selektoren.
+- Datenmodell:
+    - ElementDescriptor: { tag, role, accessibleName, text, placeholder, title/tooltip, sectionTitle, nearbyText[±2], formGroup, id, data-*, href, stability, inViewport, visible,
+isInActiveTab }.
+    - QuerySpec: { intent: click|type|any, keywords: string[], context?: string }.
+- Module/Änderungen:
+    - howto-core/src/semantic-index.ts: In‑Memory Cosine Index (start: TF‑IDF/char‑ngram; später Embeddings).
+    - howto-core/src/model-selector.ts: Feature‑Extraktor + Re‑Rank (cosine, role‑match, stability, dom‑tiefe, duplicate‑density, context‑match).
+    - howto-core/src/selector-synthesizer.ts: Priorisierte Selektor‑Generierung.
+    - howto-core/src/runner.ts: In findElementHeuristic ersetzen durch: index.query → model.rank → synthesize → validate → persist; LLM nur on‑tie/low‑conf.
+    - howto-core/src/selector-heuristics-store.ts: Flags: features.semanticRetrieval.enabled, semantic.topK, weights.semanticSimilarity; Speicherung learned selectors unverändert.
+- Overlay/Portals (generisch, nicht deterministisch):
+    - Soft‑Gating: overlayScore aus Evidenzen (Mutation, z‑Index, Fokus, ARIA, Geometrie, semantische Klassen). g bestimmt Anteil Overlay‑vs‑Base Retrieval.
+    - Optionales overlay-detector.ts mit konfigurierbaren Gewichten (lernbar).
+- Telemetrie/Metriken:
+    - Query→Top‑k recall, best p, chosen selector, validate result, latency, on‑tie‑rate, LLM‑Quote, learned‑selector reuse.
+- Rollout/Experimente:
+    - Feature‑Flag: SELECTOR_PIPELINE=semantic|hybrid|legacy.
+    - A/B über 3–5 Releases (200–500 Flows): Ziel ≥+10 Punkte Success, −30–60% Flakiness, ≤+50 ms P95 Overhead, LLM‑Quote ≤15%.
+- Testplan:
+    - Unit: Synthesizer/Validator auf Snapshots.
+    - Integration: Gegen 50–100 repräsentative Seiten (lokal).
+    - Regression: Reuse learned selectors über Releases.
+- Timeline:
+    - Woche 1: SemanticIndex + Synthesizer, Runner‑Integration (Flag), Basis‑Logging.
+    - Woche 2: Re‑Ranker (LogReg/XGBoost), Overlay‑Soft‑Gating, Telemetrie.
+    - Woche 3: Eval/Feintuning, LLM on‑tie, Rollout auf 50% Flows.
+    - Woche 4: Voller Rollout, Cleanups.
+- Risiken & Mitigation:
+    - Datenmangel: Start mit regelbasiertem Rerank + Logs → inkrementelles Training.
+    - Latenz: K und Features begrenzen; Index per screenFingerprint cachen.
+    - Drift: Rebuild bei Navigation/DOM‑Diff; Memory priorisieren.
+
+2) Planner‑RAG (LLM→Query→RAG→Plan)
+
+- Architektur:
+    - GenerateQuery: LLM erzeugt QuerySpec JSON (Intent, Keywords, Filter, Constraints, k).
+    - Retrieval: Section‑Index (Landmarks/Headings) und Element‑Index (interaktiv), Filter (role, visible, inViewport, activeTab).
+    - EvidencePack: Kompakte Treffer (label, role, snippet, selector‑Kandidaten, section, scores).
+    - PlanWithEvidence: LLM plant Next Step aus EvidencePack; optional Follow‑Up‑Query on‑uncertainty.
+    - Execution: Deterministische Validierung; Feedback in nächste Planrunde.
+- QuerySpec JSON (Schema):
+    - { intent: "navigate|click|type|assert", keywords: string[], filters?: { role?: string[], attrs?: Record<string,string>, sectionHint?: string, negative?: string[] },
+constraints?: { mustBeVisible?: boolean, mustBeClickable?: boolean, language?: string }, k?: number, diversity?: boolean }
+- Module/Änderungen:
+    - howto-core/semantic-index.ts: Zusätzlich Section‑Index (pro Landmark/Heading‑Block: title, text, roles, anchor selectors).
+    - howto-prompt/src/providers/llm-provider.ts:
+    - Neuer Modus: GenerateQuery(context) → QuerySpec; retrieve(QuerySpec) → EvidencePack; PlanWithEvidence(goal, evidence) → Step.
+    - Prompts/JSON‑Schemas aktualisieren; Budget/Retry‑Policy (max 2 Query‑Runden).
+- howto-prompt/src/planner/step-planner.ts:
+    - Neue Tool‑Methode `retrieve({query})`; UIInventory aus EvidencePack bauen.
+    - Step‑Plan‑Flow: GenerateQuery → Retrieve → PlanWithEvidence → Execute → Feedback/Next.
+- Retrieval‑Strategie:
+    - Stufe 1 (Coarse): Section‑Queries → Top‑m Sektionen (boost viewport‑Nähe).
+    - Stufe 2 (Fine): Element‑Queries (mit sectionHint) → Top‑k Elemente.
+    - Reranker: Diversität (clustering), Strukturfeatures (dom‑tiefe, stability), cosine; K klein (m≈10, k≈30).
+- Safeguards/Kosten:
+    - Zeitlimit/Step (z. B. 3–5 s), max 2 Query‑Runden, K und Payload caps.
+    - Negative Constraints nach Fail (NOT section/footer, NOT role/link, etc.).
+- Telemetrie/Metriken:
+    - Tokens/Step, Plan‑Latenz, Query‑Runden/Step, Evidence usefulness (hit@k), Plan‑Success, Step‑Flakes.
+- Rollout/Experimente:
+    - Feature‑Flag: PLANNER_RETRIEVAL_MODE=full|rag.
+    - A/B: RAG vs Full‑DOM Planning; Ziele: −X% Tokens, −Y ms Latenz, +Z Punkte Plan‑Success.
+- Prompt‑Snippets:
+    - GenerateQuery: “Return STRICT JSON matching schema… Include sectionHint if landmarks show ‘Einstellungen|Account’…”
+    - PlanWithEvidence: “Given evidence items (#, label, role, section, selector candidates, score), plan exactly ONE next step… If uncertain, request ONE follow‑up query (same
+schema).”
+- Testplan:
+    - Offline eval: Gespeicherte DOM‑Snapshots → Queries → Evidence → Plan (gold steps).
+    - Live smoke: Top Flows mit Subtasks (Login, Search, Checkout).
+- Timeline:
+    - Woche 1: Section/Element‑Index; Retrieve API; Basic prompts; Feature flag.
+    - Woche 2: EvidencePack Format, Reranker, Planner‑Integration; Budget/Retry.
+    - Woche 3: Eval/Feintuning, A/B gegen Full‑DOM; Telemetrie.
+    - Woche 4: Rollout; Stabilisierung; Prompt‑Hardening.
+- Risiken & Mitigation:
+    - Query‑Drift: Schema strikt, JSON‑Validator; DSL‑ähnliche Felder (role:, text~, NOT).
+    - Coverage‑Lücken: Zwei‑Stufen‑Retrieval, Diversität, Follow‑Up‑Query.
+    - Kosten: Cap k/m, compress Evidence, reduce tokens; Cache per screenFingerprint.

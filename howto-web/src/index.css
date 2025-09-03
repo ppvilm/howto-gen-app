@@ -1,0 +1,508 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root { height: 100%; }
+
+/* macOS Dark Mode Design System Variables */
+:root {
+  --ios-blue: #007AFF;
+  --ios-blue-hover: #0056B3;
+  --ios-green: #34C759;
+  --ios-red: #FF3B30;
+  --ios-orange: #FF9500;
+  --ios-yellow: #FFCC02;
+  --ios-purple: #AF52DE;
+  --ios-pink: #FF2D92;
+  
+  --ios-gray-1: #F2F2F7;
+  --ios-gray-2: #E5E5EA;
+  --ios-gray-3: #D1D1D6;
+  --ios-gray-4: #C7C7CC;
+  --ios-gray-5: #AEAEB2;
+  --ios-gray-6: #8E8E93;
+  
+  --ios-shadow-light: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.08);
+  --ios-shadow-medium: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+  --ios-shadow-large: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+  
+  --ios-border-radius-sm: 8px;
+  --ios-border-radius-md: 12px;
+  --ios-border-radius-lg: 16px;
+  --ios-border-radius-xl: 20px;
+}
+
+
+/* Global macOS-like baseline */
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  body {
+    @apply text-gray-900 transition-colors duration-300;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    letter-spacing: -0.01em;
+    /* Light mode background */
+    background: 
+      radial-gradient(circle at 20% 10%, rgba(120, 119, 198, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 214, 10, 0.06) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.04) 0%, transparent 50%),
+      linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  }
+  
+  
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  button, a {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+}
+
+/* iOS design tokens via utility composition */
+@layer components {
+  /* Cards & Surfaces */
+  .ios-card { 
+    @apply rounded-2xl backdrop-blur-md border shadow-sm transition-all duration-300;
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: var(--ios-shadow-light);
+  }
+  
+  
+  .ios-card-elevated {
+    @apply ios-card;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: var(--ios-shadow-medium);
+  }
+  
+  
+  /* Navigation */
+  .ios-nav { 
+    @apply sticky top-0 z-10 flex items-center px-6 backdrop-blur-md border-b transition-all duration-300;
+    height: 52px;
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(0, 0, 0, 0.08);
+  }
+  
+
+  /* Form Elements */
+  .ios-input { 
+    @apply w-full border backdrop-blur-sm px-4 py-3 font-medium focus:outline-none transition-all duration-200 placeholder:text-gray-400;
+    border-radius: var(--ios-border-radius-md);
+    background: rgba(255, 255, 255, 0.9);
+    border-color: var(--ios-gray-3);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+  
+  
+  .ios-input:focus {
+    border-color: var(--ios-blue);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.15), inset 0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+  
+
+  /* Buttons */
+  .ios-button { 
+    @apply inline-flex items-center justify-center font-medium transition-all duration-150 active:scale-[0.97] select-none;
+    border-radius: var(--ios-border-radius-md);
+    padding: 12px 20px;
+    font-size: 16px;
+    line-height: 1.2;
+    cursor: pointer;
+  }
+  
+  .ios-button:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+  
+  .ios-button-primary { 
+    @apply ios-button text-white;
+    background: var(--ios-blue);
+    box-shadow: var(--ios-shadow-light);
+  }
+  
+  .ios-button-primary:hover:not(:disabled) {
+    background: var(--ios-blue-hover);
+    box-shadow: var(--ios-shadow-medium);
+  }
+  
+  .ios-button-secondary {
+    @apply ios-button;
+    background: var(--ios-gray-1);
+    color: var(--ios-blue);
+    border: 1px solid var(--ios-gray-2);
+  }
+  
+  .ios-button-secondary:hover:not(:disabled) {
+    background: var(--ios-gray-2);
+  }
+  
+  .ios-button-ghost { 
+    @apply ios-button backdrop-blur-sm border;
+    background: rgba(255, 255, 255, 0.7);
+    border-color: rgba(255, 255, 255, 0.6);
+    color: var(--ios-blue);
+  }
+  
+  .ios-button-ghost:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.9);
+  }
+  
+  .ios-button-destructive {
+    @apply ios-button text-white;
+    background: var(--ios-red);
+  }
+  
+  .ios-button-destructive:hover:not(:disabled) {
+    background: #D70015;
+  }
+
+  /* Segmented Controls */
+  .ios-segment { 
+    @apply inline-flex p-1;
+    background: var(--ios-gray-1);
+    border: 1px solid var(--ios-gray-2);
+    border-radius: var(--ios-border-radius-md);
+  }
+  
+  .ios-segment-button { 
+    @apply px-4 py-2 text-sm font-medium transition-all duration-150;
+    border-radius: calc(var(--ios-border-radius-md) - 4px);
+    color: var(--ios-gray-6);
+  }
+  
+  .ios-segment-button:hover {
+    background: rgba(255, 255, 255, 0.7);
+  }
+  
+  .ios-segment-button-active { 
+    @apply text-gray-900;
+    background: white;
+    box-shadow: var(--ios-shadow-light);
+  }
+
+  /* Lists */
+  .ios-list { 
+    @apply overflow-hidden backdrop-blur-md border transition-all duration-300;
+    border-radius: var(--ios-border-radius-lg);
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+  
+  
+  .ios-list-item { 
+    @apply w-full text-left px-4 py-3 transition-colors duration-150 font-medium;
+  }
+  
+  .ios-list-item:hover {
+    background: rgba(0, 0, 0, 0.04);
+  }
+  
+  
+  .ios-list-item-active { 
+    background: rgba(0, 122, 255, 0.1);
+    color: var(--ios-blue);
+  }
+  
+
+  /* Badges */
+  .ios-badge { 
+    @apply inline-flex items-center text-xs px-2 py-1 font-medium;
+    background: var(--ios-gray-1);
+    color: var(--ios-gray-6);
+    border-radius: var(--ios-border-radius-sm);
+  }
+  
+  .ios-badge-primary {
+    @apply ios-badge text-white;
+    background: var(--ios-blue);
+  }
+  
+  .ios-badge-success {
+    @apply ios-badge text-white;
+    background: var(--ios-green);
+  }
+  
+  .ios-badge-warning {
+    @apply ios-badge text-white;
+    background: var(--ios-orange);
+  }
+  
+  .ios-badge-error {
+    @apply ios-badge text-white;
+    background: var(--ios-red);
+  }
+
+  /* Status Indicators */
+  .ios-status-dot {
+    @apply inline-block w-2 h-2 rounded-full;
+  }
+  
+  .ios-status-online { background: var(--ios-green); }
+  .ios-status-offline { background: var(--ios-gray-5); }
+  .ios-status-busy { background: var(--ios-red); }
+  .ios-status-away { background: var(--ios-yellow); }
+
+  /* Event Stream Enhancements */
+  .event-card {
+    @apply transition-all duration-300 ease-in-out transform;
+  }
+  
+  .event-card-enter {
+    @apply opacity-0 translate-y-2 scale-95;
+    animation: slideInUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+  
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(8px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  .event-card-pulse {
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+  
+  @keyframes pulseGlow {
+    0%, 100% {
+      box-shadow: var(--ios-shadow-light);
+    }
+    50% {
+      box-shadow: 0 0 20px rgba(0, 122, 255, 0.3), var(--ios-shadow-light);
+    }
+  }
+  
+  /* Timeline Progress */
+  .timeline-progress {
+    @apply relative overflow-hidden;
+    background: var(--ios-gray-1);
+    height: 4px;
+    border-radius: 2px;
+  }
+  
+  .timeline-progress-fill {
+    @apply h-full transition-all duration-500 ease-out;
+    background: linear-gradient(90deg, var(--ios-blue), var(--ios-purple));
+    border-radius: 2px;
+  }
+  
+  .timeline-progress-glow {
+    animation: progressGlow 1.5s ease-in-out infinite;
+  }
+  
+  @keyframes progressGlow {
+    0%, 100% {
+      box-shadow: 0 0 8px rgba(0, 122, 255, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 16px rgba(0, 122, 255, 0.6);
+    }
+  }
+  
+  /* Event Phase Indicators */
+  .phase-indicator {
+    @apply flex items-center gap-2 text-xs font-medium px-3 py-1.5 rounded-full;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  
+  .phase-planning { border-left: 3px solid var(--ios-blue); }
+  .phase-executing { border-left: 3px solid var(--ios-orange); }
+  .phase-completed { border-left: 3px solid var(--ios-green); }
+  .phase-error { border-left: 3px solid var(--ios-red); }
+  
+  /* Enhanced Icons */
+  .event-icon {
+    @apply flex items-center justify-center w-8 h-8 rounded-full text-base;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    min-width: 32px;
+  }
+  
+  .event-icon-planning { background: rgba(0, 122, 255, 0.1); color: var(--ios-blue); }
+  .event-icon-executing { background: rgba(255, 149, 0, 0.1); color: var(--ios-orange); }
+  .event-icon-success { background: rgba(52, 199, 89, 0.1); color: var(--ios-green); }
+  .event-icon-error { background: rgba(255, 59, 48, 0.1); color: var(--ios-red); }
+  
+  /* Interactive Elements */
+  .event-action-button {
+    @apply text-xs px-2 py-1 rounded-md transition-all duration-150 font-medium;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    color: var(--ios-blue);
+  }
+  
+  .event-action-button:hover {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: var(--ios-shadow-light);
+  }
+  
+  /* Collapsible Groups */
+  .group-header {
+    @apply cursor-pointer transition-colors duration-150;
+  }
+  
+  .group-header:hover {
+    background: rgba(0, 0, 0, 0.02);
+  }
+  
+  .group-collapse-enter {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+  }
+  
+  .group-collapse-enter-active {
+    max-height: 500px;
+  }
+  
+  /* Screenshot Preview */
+  .screenshot-preview {
+    @apply transition-transform duration-200 cursor-pointer;
+  }
+  
+  .screenshot-preview:hover {
+    transform: scale(1.02);
+  }
+  
+  /* Mobile Responsive Enhancements */
+  @media (max-width: 768px) {
+    .event-card {
+      @apply mx-2 px-3 py-2;
+    }
+    
+    .event-icon {
+      @apply w-6 h-6 text-sm;
+      min-width: 24px;
+    }
+    
+    .ios-segment {
+      @apply text-xs;
+    }
+    
+    .ios-segment-button {
+      @apply px-2 py-1;
+    }
+    
+    .event-action-button {
+      @apply px-2 py-1 text-xs;
+    }
+    
+    .screenshot-preview {
+      @apply max-h-32;
+    }
+    
+    .phase-indicator {
+      @apply px-2 py-1 text-xs;
+    }
+    
+    .group-header {
+      @apply p-2;
+    }
+  }
+  
+  /* Performance Optimizations */
+  .event-list-container {
+    contain: layout style paint;
+    will-change: scroll-position;
+  }
+  
+  .event-card {
+    contain: layout style paint;
+  }
+  
+  .event-icon {
+    contain: strict;
+  }
+  
+  /* Reduce Motion for Accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .event-card-enter,
+    .event-card-pulse,
+    .timeline-progress-glow,
+    .screenshot-preview {
+      animation: none !important;
+      transition: none !important;
+    }
+    
+    .timeline-progress-fill {
+      transition: width 0.1s linear;
+    }
+  }
+  
+  /* High Contrast Mode Support */
+  @media (prefers-contrast: high) {
+    .event-icon {
+      border: 2px solid currentColor;
+    }
+    
+    .phase-indicator {
+      border: 2px solid currentColor;
+    }
+    
+    .event-action-button {
+      border: 2px solid currentColor;
+    }
+  }
+  
+  /* Light iOS Theme Consistency */
+  .event-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(0, 0, 0, 0.08);
+  }
+  
+  .event-icon {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(0, 0, 0, 0.08);
+  }
+  
+  .phase-indicator {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(0, 0, 0, 0.08);
+    color: var(--ios-gray-6);
+  }
+  
+  /* Compact Event List */
+  .compact-event-item {
+    @apply transition-colors duration-150;
+    background: var(--ios-gray-1);
+    border: 1px solid var(--ios-gray-2);
+  }
+  
+  .compact-event-item:hover {
+    background: rgba(0, 122, 255, 0.05);
+    border-color: rgba(0, 122, 255, 0.2);
+  }
+  
+  /* Event Dialog Backdrop */
+  .event-dialog-backdrop {
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 9999 !important;
+  }
+  
+  /* Ensure dialogs are always on top */
+  .event-dialog-modal {
+    z-index: 9999 !important;
+    position: fixed !important;
+  }
+  
+  .event-details-modal {
+    z-index: 10000 !important;
+    position: fixed !important;
+  }
+}
